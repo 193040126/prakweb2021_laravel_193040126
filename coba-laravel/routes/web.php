@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\PostController;
+use App\Models\Post;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -30,55 +33,7 @@ Route::get('/about', function () {
 
 
 
-Route::get('/blog', function () {
-    $blog_posts = [
-        [
-            "title" => "Judul Post Pertama",
-            "slug" => "judul-post-pertama",
-            "author" => "Diva Amwal",
-            "body" => "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Error laborum quisquam, aspernatur rerum deleniti veritatis pariatur odit optio, facere similique iure esse repellat quos aliquam at dolore suscipit quibusdam distinctio?"
-        ],
-        [
-        "title" => "Judul Post Kedua",
-        "slug" => "judul-post-kedua",
-        "author" => "Doddy Ferdiansyah",
-        "body" => "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste, modi? Nemo ex adipisci repellendus reiciendis enim laboriosam officia mollitia magnam molestiae dignissimos autem, nihil accusantium fugit minus quidem placeat quaerat unde debitis pariatur natus soluta illum eos esse vel! Et magni deleniti quis facere dolor eaque asperiores sit laudantium itaque doloremque corrupti nam, esse ipsum quidem animi neque reiciendis, sed minima illum unde sunt facilis! Accusamus saepe atque corporis suscipit eos autem, sint animi corrupti natus tempora voluptatibus maiores velit neque consequatur ipsam dolor adipisci quaerat ipsum aut repellat illum ex commodi consectetur alias. Repellat quos deleniti autem accusamus aliquam."
-        ]
-    ];
-    
-    
-    return view('posts', [
-        "title" => "Posts",
-        "posts" => $blog_posts
-    ]);
-});
+Route::get('/blog', [PostController::class, 'index']);
 
 //halaman single post
-Route::get('posts/{slug}', function($slug){
-    $blog_posts = [
-        [
-            "title" => "Judul Post Pertama",
-            "slug" => "judul-post-pertama",
-            "author" => "Diva Amwal",
-            "body" => "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Error laborum quisquam, aspernatur rerum deleniti veritatis pariatur odit optio, facere similique iure esse repellat quos aliquam at dolore suscipit quibusdam distinctio?"
-        ],
-        [
-        "title" => "Judul Post Kedua",
-        "slug" => "judul-post-kedua",
-        "author" => "Doddy Ferdiansyah",
-        "body" => "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste, modi? Nemo ex adipisci repellendus reiciendis enim laboriosam officia mollitia magnam molestiae dignissimos autem, nihil accusantium fugit minus quidem placeat quaerat unde debitis pariatur natus soluta illum eos esse vel! Et magni deleniti quis facere dolor eaque asperiores sit laudantium itaque doloremque corrupti nam, esse ipsum quidem animi neque reiciendis, sed minima illum unde sunt facilis! Accusamus saepe atque corporis suscipit eos autem, sint animi corrupti natus tempora voluptatibus maiores velit neque consequatur ipsam dolor adipisci quaerat ipsum aut repellat illum ex commodi consectetur alias. Repellat quos deleniti autem accusamus aliquam."
-        ]
-    ];
-
-    $new_post = [];
-    foreach($blog_posts as $post){
-        if($post["slug"] ===  $slug){
-            $new_post = $post;
-        }
-    }
-
-    return view('post',[
-        "title" => "Single Post",
-        "post" => $new_post
-    ]);
-});
+Route::get('posts/{slug}', [PostController::class, 'show']);
